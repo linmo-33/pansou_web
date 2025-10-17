@@ -7,6 +7,7 @@ import ApiHealthModal from '@/components/ApiHealthModal';
 import SearchStats from '@/components/SearchStats';
 import CloudTypeFilter from '@/components/CloudTypeFilter';
 import SearchResults from '@/components/SearchResults';
+import SearchProgress from '@/components/SearchProgress';
 
 export default function Home() {
   const [keyword, setKeyword] = useState('');
@@ -189,6 +190,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* 搜索进度条 */}
+      <SearchProgress loading={loading} />
+
       {/* 复制成功提示 */}
       {copySuccess && (
         <div className="fixed top-16 sm:top-20 left-1/2 -translate-x-1/2 sm:left-auto sm:right-4 sm:translate-x-0 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl shadow-2xl z-50 animate-fade-in flex items-center gap-2">
@@ -207,11 +211,11 @@ export default function Home() {
       />
 
       {/* 顶部导航栏 */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm">
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm" role="banner">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="flex items-center gap-2 sm:gap-3">
-              <div className="relative w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30 transform hover:scale-105 transition-transform">
+              <div className="relative w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30 transform hover:scale-105 transition-transform" aria-hidden="true">
                 <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-lg sm:rounded-xl"></div>
                 <span className="text-white font-bold text-lg sm:text-xl relative z-10">云</span>
               </div>
@@ -225,20 +229,21 @@ export default function Home() {
           <button
             onClick={() => setShowHealthModal(true)}
             className="flex items-center gap-1.5 sm:gap-2 hover:bg-gray-50 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg transition-colors"
+            aria-label={`API服务状态: ${apiStatus === 'ok' ? '正常' : apiStatus === 'error' ? '异常' : '检查中'}`}
           >
             {apiStatus === 'ok' ? (
               <>
-                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" aria-hidden="true"></div>
                 <span className="text-xs sm:text-sm text-gray-600 hidden sm:inline">服务正常</span>
               </>
             ) : apiStatus === 'error' ? (
               <>
-                <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                <div className="w-2 h-2 rounded-full bg-red-500" aria-hidden="true"></div>
                 <span className="text-xs sm:text-sm text-gray-600 hidden sm:inline">服务异常</span>
               </>
             ) : (
               <>
-                <div className="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></div>
+                <div className="w-2 h-2 rounded-full bg-yellow-500 animate-pulse" aria-hidden="true"></div>
                 <span className="text-xs sm:text-sm text-gray-600 hidden sm:inline">检查中...</span>
               </>
             )}
@@ -246,7 +251,7 @@ export default function Home() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8">
+      <main id="main-content" className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8" role="main">
         {/* 搜索框 */}
         <SearchBar
           keyword={keyword}
@@ -269,41 +274,53 @@ export default function Home() {
 
         {/* 错误提示 */}
         {error && (
-          <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-5 py-4 rounded-lg mb-6 flex items-center gap-3 shadow-sm">
-            <svg className="w-5 h-5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-5 py-4 rounded-lg mb-6 flex items-center gap-3 shadow-sm" role="alert" aria-live="assertive">
+            <svg className="w-5 h-5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <span>{error}</span>
           </div>
         )}
 
-        {/* 搜索结果 */}
-        {result && result.merged_by_type && Object.entries(result.merged_by_type).map(([type, links]) => {
-          if (!links || links.length === 0) return null;
-          if (selectedType && selectedType !== type) return null;
+        {/* 加载状态 */}
+        {loading && (
+          <div className="text-center py-12" role="status" aria-live="polite">
+            <div className="inline-block w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin" aria-hidden="true"></div>
+            <p className="mt-4 text-gray-600">正在搜索中...</p>
+          </div>
+        )}
 
-          return (
-            <SearchResults
-              key={type}
-              type={type as CloudType}
-              links={links}
-              displayLimit={displayLimit[type] || 10}
-              onLoadMore={() => loadMore(type)}
-              onCopy={copyToClipboard}
-            />
-          );
-        })}
+        {/* 搜索结果 */}
+        {result && result.merged_by_type && (
+          <div role="region" aria-label="搜索结果">
+            {Object.entries(result.merged_by_type).map(([type, links]) => {
+              if (!links || links.length === 0) return null;
+              if (selectedType && selectedType !== type) return null;
+
+              return (
+                <SearchResults
+                  key={type}
+                  type={type as CloudType}
+                  links={links}
+                  displayLimit={displayLimit[type] || 10}
+                  onLoadMore={() => loadMore(type)}
+                  onCopy={copyToClipboard}
+                />
+              );
+            })}
+          </div>
+        )}
 
         {/* 空状态 */}
         {!loading && !result && !error && (
-          <div className="text-center py-12 sm:py-20">
-            <svg className="w-16 h-16 sm:w-24 sm:h-24 mx-auto mb-3 sm:mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="text-center py-12 sm:py-20" role="status">
+            <svg className="w-16 h-16 sm:w-24 sm:h-24 mx-auto mb-3 sm:mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             <p className="text-base sm:text-lg text-gray-500 px-4">输入关键词开始搜索网盘资源</p>
           </div>
         )}
-      </div>
+      </main>
     </div>
   );
 }
