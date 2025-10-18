@@ -18,7 +18,7 @@ export default function SearchStats({ total, searchTime }: SearchStatsProps) {
           <div>
             <div className="text-xs sm:text-sm text-gray-500">搜索结果</div>
             <div className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              {total}
+              {total} 个资源
             </div>
           </div>
         </div>

@@ -190,16 +190,13 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* 搜索进度条 */}
-      <SearchProgress loading={loading} />
-
       {/* 复制成功提示 */}
       {copySuccess && (
         <div className="fixed top-16 sm:top-20 left-1/2 -translate-x-1/2 sm:left-auto sm:right-4 sm:translate-x-0 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl shadow-2xl z-50 animate-fade-in flex items-center gap-2">
           <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
           </svg>
-          <span className="text-sm sm:text-base">复制成功!</span>
+          <span className="text-sm sm:text-base">已复制！</span>
         </div>
       )}
 
@@ -260,6 +257,9 @@ export default function Home() {
           onSearch={handleSearch}
         />
 
+        {/* 搜索进度条 */}
+        <SearchProgress loading={loading} />
+
         {/* 搜索结果统计 */}
         {result && <SearchStats total={result.total} searchTime={searchTime} />}
 
@@ -286,7 +286,8 @@ export default function Home() {
         {loading && (
           <div className="text-center py-12" role="status" aria-live="polite">
             <div className="inline-block w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin" aria-hidden="true"></div>
-            <p className="mt-4 text-gray-600">正在搜索中...</p>
+            <p className="mt-4 text-gray-600 font-medium">搜索中...</p>
+            <p className="mt-2 text-sm text-gray-400">马上就好</p>
           </div>
         )}
 
@@ -317,7 +318,8 @@ export default function Home() {
             <svg className="w-16 h-16 sm:w-24 sm:h-24 mx-auto mb-3 sm:mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
-            <p className="text-base sm:text-lg text-gray-500 px-4">输入关键词开始搜索网盘资源</p>
+            <p className="text-base sm:text-lg font-medium text-gray-700 px-4 mb-2">输入关键词开始搜索</p>
+            <p className="text-sm text-gray-400 px-4">支持搜索电影、软件、学习资料等各类资源</p>
           </div>
         )}
       </main>

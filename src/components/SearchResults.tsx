@@ -121,7 +121,7 @@ export default function SearchResults({ type, links, displayLimit, onLoadMore, o
                     <img
                       key={i}
                       src={img}
-                      alt={`资源预览图 ${i + 1}`}
+                      alt={`${link.note || '资源'}预览图 ${i + 1}`}
                       className="w-12 h-12 sm:w-14 sm:h-14 object-cover rounded-lg border-2 border-gray-200 hover:border-blue-400 transition-colors shadow-sm"
                       loading="lazy"
                     />

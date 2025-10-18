@@ -23,8 +23,8 @@ export default function CloudTypeFilter({ result, selectedType, onTypeToggle }: 
             </svg>
           </div>
           <div>
-            <h3 className="text-base sm:text-lg font-bold text-gray-800">网盘类型</h3>
-            <span className="text-xs text-gray-500 hidden sm:inline">点击筛选特定网盘资源</span>
+            <h3 className="text-base sm:text-lg font-bold text-gray-800">网盘筛选</h3>
+            <span className="text-xs text-gray-500 hidden sm:inline">按平台查看资源</span>
           </div>
         </div>
         {selectedType && (
@@ -50,18 +50,16 @@ export default function CloudTypeFilter({ result, selectedType, onTypeToggle }: 
             <button
               key={type}
               onClick={() => onTypeToggle(type as CloudType)}
-              className={`group relative px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-medium transition-all inline-flex items-center gap-2 ${
-                isSelected
-                  ? `${color} text-white shadow-lg scale-105`
-                  : 'bg-gradient-to-br from-gray-50 to-gray-100 text-gray-700 border-2 border-gray-200 hover:border-gray-300 hover:shadow-md active:scale-95 sm:hover:scale-105'
-              }`}
+              className={`group relative px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-medium transition-all inline-flex items-center gap-2 ${isSelected
+                ? `${color} text-white shadow-lg scale-105`
+                : 'bg-gradient-to-br from-gray-50 to-gray-100 text-gray-700 border-2 border-gray-200 hover:border-gray-300 hover:shadow-md active:scale-95 sm:hover:scale-105'
+                }`}
             >
               <span className="text-sm sm:text-base font-semibold whitespace-nowrap">{name}</span>
-              <span className={`px-2 py-0.5 rounded-full text-xs font-bold leading-none ${
-                isSelected
-                  ? 'bg-white/30 text-white'
-                  : 'bg-white text-gray-600 group-hover:bg-blue-50 group-hover:text-blue-600'
-              }`}>
+              <span className={`px-2 py-0.5 rounded-full text-xs font-bold leading-none ${isSelected
+                ? 'bg-white/30 text-white'
+                : 'bg-white text-gray-600 group-hover:bg-blue-50 group-hover:text-blue-600'
+                }`}>
                 {count}
               </span>
               {isSelected && (
