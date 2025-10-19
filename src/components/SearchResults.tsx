@@ -41,7 +41,7 @@ export default function SearchResults({ type, links, displayLimit, onLoadMore, o
         {links.slice(0, displayLimit).map((link, index) => (
           <article
             key={index}
-            className="group bg-gradient-to-r from-white to-gray-50 hover:from-blue-50 hover:to-purple-50 border border-gray-200 rounded-lg sm:rounded-xl p-3 sm:p-5 transition-all hover:shadow-md hover:border-blue-300"
+            className="group bg-gradient-to-r from-white to-gray-50 hover:from-blue-50 hover:to-cyan-50 border border-gray-200 rounded-lg sm:rounded-xl p-3 sm:p-5 transition-all hover:shadow-md hover:border-blue-300"
             role="listitem"
           >
             {link.note && (
@@ -167,7 +167,7 @@ export default function SearchResults({ type, links, displayLimit, onLoadMore, o
         <div className="mt-6 text-center">
           <button
             onClick={onLoadMore}
-            className="group px-8 py-3 bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-400 text-blue-600 rounded-xl hover:from-blue-500 hover:to-purple-500 hover:text-white font-medium transition-all shadow-sm hover:shadow-md inline-flex items-center gap-2"
+            className="group px-8 py-3 bg-gradient-to-r from-blue-50 to-cyan-50 border-2 border-blue-400 text-blue-600 rounded-xl hover:from-blue-500 hover:to-cyan-500 hover:text-white font-medium transition-all shadow-sm hover:shadow-md inline-flex items-center gap-2"
             aria-label={`加载更多${name}资源，还有${links.length - displayLimit}个`}
           >
             <svg className="w-5 h-5 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
