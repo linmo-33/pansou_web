@@ -16,12 +16,12 @@ export default function ApiHealthModal({ show, healthInfo, onClose }: ApiHealthM
         {/* 固定头部 */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 flex-shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">API 服务状态</h2>
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">API 服务状态</h2>
           </div>
           <button
             onClick={onClose}
@@ -71,9 +71,9 @@ export default function ApiHealthModal({ show, healthInfo, onClose }: ApiHealthM
                     )}
                   </div>
                 </div>
-                <div className="bg-white border-2 border-gray-200 rounded-xl p-4 hover:border-purple-300 transition-colors">
+                <div className="bg-white border-2 border-gray-200 rounded-xl p-4 hover:border-cyan-300 transition-colors">
                   <div className="flex items-center gap-2 mb-1.5">
-                    <svg className="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                     </svg>
                     <div className="text-sm font-medium text-gray-600">插件功能</div>
@@ -117,14 +117,14 @@ export default function ApiHealthModal({ show, healthInfo, onClose }: ApiHealthM
 
               {/* 频道列表 */}
               {healthInfo.channels && healthInfo.channels.length > 0 && (
-                <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-4 border-2 border-purple-200">
+                <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl p-4 border-2 border-cyan-200">
                   <div className="flex items-center gap-2 mb-3">
-                    <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
                     <div className="font-semibold text-gray-700 text-sm">
                       Telegram 频道
-                      <span className="ml-2 px-2 py-0.5 bg-purple-500 text-white rounded-full text-xs font-semibold">
+                      <span className="ml-2 px-2 py-0.5 bg-cyan-500 text-white rounded-full text-xs font-semibold">
                         {healthInfo.channels_count}
                       </span>
                     </div>
@@ -133,7 +133,7 @@ export default function ApiHealthModal({ show, healthInfo, onClose }: ApiHealthM
                     {healthInfo.channels.map((channel: string, index: number) => (
                       <span
                         key={index}
-                        className="px-2.5 py-1 bg-white border-2 border-purple-200 text-purple-700 rounded-lg text-sm font-medium hover:border-purple-400 transition-colors"
+                        className="px-2.5 py-1 bg-white border-2 border-cyan-200 text-cyan-700 rounded-lg text-sm font-medium hover:border-cyan-400 transition-colors"
                       >
                         {channel}
                       </span>
